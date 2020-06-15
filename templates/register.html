@@ -1,0 +1,43 @@
+{% extends "login-layout.html" %}
+
+{% block main %}
+
+    <h1 class="text-center">Bookful</h1>    
+
+    <h3 class="text-center mb-5">Account Register</h3>
+
+    <form action="" method="post" class="mt-5">
+        <div class="form-group">
+            <label for="forenameInput" class="d-none d-md-block">Forename</label>
+            <input type="text" class="form-control" id="forenameInput" placeholder="Forename">
+        </div>
+
+        <div class="form-group">
+            <label for="surnameInput" class="d-none d-md-block">Surname <em>(optional)</em></label>
+            <input type="text" class="form-control" id="surnameInput" placeholder="Surname (optional)">
+        </div>
+
+        <div class="form-group">
+            <label for="usernameInput" class="d-none d-md-block">Username</label>
+            <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <label for="passwordInput" class="d-none d-md-block">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmpasswordInput" class="d-none d-md-block">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmpasswordInput" placeholder="Confirm Password">
+        </div>
+
+        <div class="form-group row pt-4">
+            <input type="submit" class="col btn btn-success mr-1" value="Register">
+            <a class="col btn btn-secondary ml-1" href="{{ url_for('login') }}">Login</a>
+        </div>
+
+        <small><a href="{{ url_for('index') }}">Return to homepage</a></small>
+    </form>
+
+{% endblock %}
