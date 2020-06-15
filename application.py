@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask, render_template, session
 from flask_session import Session
@@ -23,7 +24,26 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+# Goodread API
+api_key = os.getenv("GOODREAD_KEY")
+api_secret = os.getenv("GOODREAD_SECRET")
+
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    book = db.execute("SELECT isbn, title FROM books ORDER BY random() DESC LIMIT 1").fetchone()
+    json = requests.get(f"https://www.goodreads.com/book/review_counts.json?isbns={ book.isbn }&key={ api_key }").json()
+    rating = float(json["books"][0]["average_rating"])
+    return render_template("index.html", book = book, rating = rating)
+
+@app.route("/books")
+def books():
+    return render_template("books.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
