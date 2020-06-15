@@ -2,25 +2,54 @@
 
 {% block main %}
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Books, Books, Books!</h1>
-        <p class="lead">We got all the books we think you need!</p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-lg-9">
-            <h2>Top Rated Books</h2>
-            <div class="row">
-                <div class="col-12 col-lg-3"></div>
+    <div class="bigpic">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center text-light">
+                    <h1 class="font-weight-light display-3">Bookful</h1>
+                    <p class="lead">Telling you what books you want to read</p>
+                </div>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
-            Sidebar
+    </div>
+
+    <div class="bg-dark text-light">
+        <div class="container pt-5 pb-5">
+            <h2 class="text-center">Recomended Book</h2>
+            <div class="row">
+                <div class="col-12 col-lg-3 order-lg-2 pt-5 pb-5">
+                    <img src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" title="{{ book.title }}" alt="{{ book.title }} cover">
+                </div>
+                <div class="col-12 col-lg-9 order-lg-1 pt-5">
+                    <h3 class="display-4">{{ book.title }}</h3>
+                    <hr class="my-4">
+                    <p class="lead" title="{{ rating }}">
+                        {% if rating > 0 and rating < 1 %}
+                        <i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 1 and rating < 1.5 %}
+                        <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 1.5 and rating < 2 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 2 and rating < 2.5 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 2.5 and rating < 3 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 3 and rating < 3.5 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 3.5 and rating < 4 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+                        {% elif rating > 4 and rating < 4.5 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        {% elif rating > 4.5 and rating < 5 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        {% elif rating == 5 %}
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        {% else %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
