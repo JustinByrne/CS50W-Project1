@@ -1,0 +1,17 @@
+.bigpic {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('/static/img/brown-book-page-1112048_md.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-bg {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('/static/img/fashion-woman-girl-women-34075_md.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
