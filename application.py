@@ -60,7 +60,7 @@ def login():
         else:
            session['user'] = user
 
-        return redirect(url_for('index'))
+        return redirect(url_for('books'))
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
