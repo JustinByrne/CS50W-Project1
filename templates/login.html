@@ -6,15 +6,15 @@
 
     <h3 class="text-center mb-5">Login</h3>
 
-    <form action="" method="post" class="mt-5">
+    <form action="{{ url_for('login') }}" method="post" class="mt-5">
         <div class="form-group">
-            <label for="usernameInput" class="d-none d-md-block">Username</label>
-            <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+            <label for="username" class="d-none d-md-block">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
         </div>
 
         <div class="form-group">
-            <label for="passwordInput" class="d-none d-md-block">Password</label>
-            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            <label for="password" class="d-none d-md-block">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
         </div>
 
         <div class="form-group row pt-4">
