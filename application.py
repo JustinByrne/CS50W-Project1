@@ -55,7 +55,7 @@ def login():
         
         user = db.execute("SELECT * FROM users WHERE username = :username", {'username': username}).fetchone()
 
-        if not sha256_crypt.verify(password, user.password):
+        if user is None or not sha256_crypt.verify(password, user.password):
             return redirect(url_for('login'))
         else:
            session['user'] = user
