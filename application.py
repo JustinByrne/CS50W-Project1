@@ -41,9 +41,26 @@ def index():
 def books():
     return render_template("books.html")
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'GET':
+        return render_template("login.html")
+    
+    if request.method == 'POST':
+        if request.form.get('username') == '' or request.form.get('password') == '':
+            return redirect(url_for('login'))
+        
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        user = db.execute("SELECT * FROM users WHERE username = :username", {'username': username}).fetchone()
+
+        if not sha256_crypt.verify(password, user.password):
+            return redirect(url_for('login'))
+        else:
+           session['user'] = user
+
+        return redirect(url_for('index'))
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
