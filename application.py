@@ -39,7 +39,42 @@ def index():
 
 @app.route("/books")
 def books():
-    return render_template("books.html")
+    search = request.args.get('search')
+
+    if search is None:
+        books = db.execute("SELECT\
+                    books.isbn,\
+                    books.title,\
+                    authors.name\
+                FROM books\
+                JOIN authors ON authors.id = books.author_id\
+                ORDER BY books.created_at DESC\
+                LIMIT 10").fetchall()
+    else:
+        books = db.execute("SELECT\
+                books.isbn,\
+                books.title,\
+                authors.name,\
+                ts_rank(\
+                    to_tsvector('english', books.title) || to_tsvector('english', authors.name),\
+                    to_tsquery('english', :search)\
+                ) AS rank\
+            FROM books\
+            JOIN authors ON authors.id = books.author_id\
+            WHERE\
+                to_tsvector('english', books.title) || to_tsvector('english', authors.name) @@\
+                to_tsquery('english', :search)\
+            OR\
+                books.isbn LIKE :like\
+            OR\
+                books.title LIKE :like\
+            OR\
+                authors.name LIKE :like\
+            ORDER BY rank DESC\
+            LIMIT 10",
+        {"search": search, "like": "%" + search + "%"}).fetchall()
+
+    return render_template("books.html", books = books)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
