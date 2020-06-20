@@ -5,9 +5,9 @@
         <div class="row mb-5">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="input-group mb-3">
-                    <input type="search" class="form-control" placeholder="Search for a Book">
+                    <input type="search" class="form-control" id="search" placeholder="Search for a Book">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-secondary" type="button" id="btn-search"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -42,4 +42,22 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $('#btn-search').click(function()   {
+            search($('#search').val());
+        });
+
+        $('#search').keypress(function (e) {
+            if (e.which == 13) {
+                search($(this).val());
+            }
+        });
+
+        function search(query)  {
+            window.location.href = "{{ url_for('books') }}?search=" + query
+        }
+    </script>
 {% endblock %}
