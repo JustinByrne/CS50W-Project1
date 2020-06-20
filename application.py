@@ -57,13 +57,13 @@ def books():
                 authors.name,\
                 ts_rank(\
                     to_tsvector('english', books.title) || to_tsvector('english', authors.name),\
-                    to_tsquery('english', :search)\
+                    plainto_tsquery('english', :search)\
                 ) AS rank\
             FROM books\
             JOIN authors ON authors.id = books.author_id\
             WHERE\
                 to_tsvector('english', books.title) || to_tsvector('english', authors.name) @@\
-                to_tsquery('english', :search)\
+                plainto_tsquery('english', :search)\
             OR\
                 books.isbn ~* :like\
             OR\
