@@ -65,14 +65,14 @@ def books():
                 to_tsvector('english', books.title) || to_tsvector('english', authors.name) @@\
                 to_tsquery('english', :search)\
             OR\
-                books.isbn LIKE :like\
+                books.isbn ~* :like\
             OR\
-                books.title LIKE :like\
+                books.title ~* :like\
             OR\
-                authors.name LIKE :like\
+                authors.name ~* :like\
             ORDER BY rank DESC\
             LIMIT 10",
-        {"search": search, "like": "%" + search + "%"}).fetchall()
+        {"search": search, "like": ".*" + search + ".*"}).fetchall()
 
     return render_template("books.html", books = books)
 
