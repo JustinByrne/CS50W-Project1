@@ -46,6 +46,12 @@
 
 {% block javascript %}
     <script>
+        $(function() {
+            if ($.urlParam('search'))   {
+                $('#search').val(decodeURIComponent($.urlParam('search')));
+            }
+        });
+
         $('#btn-search').click(function()   {
             search($('#search').val());
         });
@@ -58,6 +64,11 @@
 
         function search(query)  {
             window.location.href = "{{ url_for('books') }}?search=" + query
+        }
+
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
         }
     </script>
 {% endblock %}
