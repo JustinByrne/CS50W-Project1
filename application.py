@@ -1,5 +1,6 @@
 import os
 import requests
+import re
 
 from flask import Flask, render_template, session, request, redirect, url_for
 from passlib.hash import sha256_crypt
@@ -72,7 +73,7 @@ def books():
                 authors.name ~* :like\
             ORDER BY rank DESC\
             LIMIT 10",
-        {"search": search, "like": ".*" + search + ".*"}).fetchall()
+        {"search": search, "like": ".*" + re.escape(search) + ".*"}).fetchall()
 
     return render_template("books.html", books = books)
 
