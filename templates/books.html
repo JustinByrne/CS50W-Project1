@@ -28,9 +28,9 @@
                             <tbody>
                                 {% for book in books %}
                                     <tr>
-                                        <td><a href="#" class="d-block">{{ book.isbn }}</a></td>
-                                        <td><a href="#" class="d-block">{{ book.title }}</a></td>
-                                        <td><a href="#" class="d-block">{{ book.name }}</a></td>
+                                        <td><a href="{{ url_for('book', isbn=book.isbn) }}" class="d-block">{{ book.isbn }}</a></td>
+                                        <td><a href="{{ url_for('book', isbn=book.isbn) }}" class="d-block">{{ book.title }}</a></td>
+                                        <td><a href="{{ url_for('book', isbn=book.isbn) }}" class="d-block">{{ book.name }}</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
