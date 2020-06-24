@@ -2,7 +2,7 @@ import os
 import requests
 import re
 
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for, jsonify
 from passlib.hash import sha256_crypt
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -110,6 +110,26 @@ def book(isbn):
         db.commit()
 
         return redirect(url_for('book', isbn=isbn))
+
+@app.route("/api/<isbn>")
+def api(isbn):
+    book = db.execute("SELECT books.id, isbn, title, year, authors.name FROM books JOIN authors ON authors.id = books.author_id WHERE isbn = :isbn", {"isbn": isbn})
+
+    if book.rowcount <= 0:
+        return redirect(url_for('books'))
+        
+    book = book.fetchone()
+    review = db.execute("SELECT id FROM reviews WHERE book_id = :book_id", {'book_id': book.id}).rowcount
+    average = db.execute("SELECT ROUND(AVG(rating), 2) AS average_rating FROM reviews WHERE book_id = :book_id", {'book_id': book.id}).fetchone()
+
+    return jsonify({
+        "title": book.title,
+        "author": book.name,
+        "year": book.year,
+        "isbn": book.isbn,
+        "review_count": review,
+        "average_score": average.average_rating,
+    })
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
