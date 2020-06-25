@@ -22,6 +22,10 @@ Then to setup the database run this
 
 `python3 -c "import migrate; migrate.up()"`
 
+With the database setup the `books.csv` can be imported with the following
+
+`python3 import.py`
+
 ## APIs being used
 
 - [Goodreads](https://www.goodreads.com/api) - for book review counts
